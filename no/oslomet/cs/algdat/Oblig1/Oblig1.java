@@ -78,11 +78,20 @@ public class Oblig1 {
             return 1;
         }
 
-        int teller = 0;
-        for (int i = 0; i < a.length; i++) {
-
+        int teller = 1;
+        int alleredeBrukt = 0;
+        for (int i = 1; i < a.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (a[j] == a[i]) {
+                    alleredeBrukt++;
+                }
+            }
+            if (alleredeBrukt == 0) {
+                teller++;
+            }
+            alleredeBrukt = 0;
         }
-        return 0;
+        return teller;
         //throw new UnsupportedOperationException();
     }
 
@@ -127,24 +136,64 @@ public class Oblig1 {
     /// 7a)
     public static String flett(String s, String t) {
         String nyString = "";
-        int indeks_teller = 0;
+        int i = 0;
+        int j = 0;
+        while (i < s.length() && j < t.length()) {
+            nyString += s.charAt(i++);
+            nyString += t.charAt(j++);
+        }
+        while (i < s.length()) {
+            nyString += s.charAt(i++);
+        }
+        while (j < t.length()) {
+            nyString += t.charAt(j++);
+        }
+        return nyString;
+        /*int indeks_teller = 0;
         while (indeks_teller < s.length() && indeks_teller < t.length()) {
             nyString += s.charAt(indeks_teller);
             nyString += t.charAt(indeks_teller);
             indeks_teller++;
         }
-        if (indeks_teller == s.length()) {
-            for (int i = indeks_teller; i < t.length(); indeks_teller++) {
+
+        if (indeks_teller == s.length() && indeks_teller != t.length()) {
+            for (int i = indeks_teller; i < t.length(); i++) {
                 nyString += t.charAt(i);
             }
         }
+        else if (indeks_teller == t.length() && indeks_teller != s.length()) {
+            for (int i = indeks_teller; i < s.length(); i++) {
+                nyString += s.charAt(i);
+            }
+        }
         return nyString;
-        //throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();*/
     }
 
     /// 7b)
     public static String flett(String... s) {
-        throw new UnsupportedOperationException();
+        String nyString = "";
+        int teller = 0;
+        for (String strings : s) {
+            for (int i = 0; i < s[i].length(); i++) {
+
+            }
+        }
+        for (int i = 0; i < s.length; i++) {
+            for (int j = 0; j < s[i].length(); j++) {
+                //if (s[i].length() > teller) {
+                    nyString += s[i].charAt(j);
+                    if (i == s.length-1) {
+                        i = 0;
+                        j++;
+                    }
+                    break;
+                    //teller++;
+                //}
+            }
+        }
+        return nyString;
+        //throw new UnsupportedOperationException();
     }
 
     ///// Oppgave 8 //////////////////////////////////////
