@@ -174,26 +174,25 @@ public class Oblig1 {
     public static String flett(String... s) {
         String nyString = "";
         int teller = 0;
-        for (String strings : s) {
-            for (int i = 0; i < s[i].length(); i++) {
-
+        while (getLongestString(s) >= teller) {
+            for (String element : s) {
+                if (element.length() > teller) {
+                    nyString += element.charAt(teller);
+                }
             }
-        }
-        for (int i = 0; i < s.length; i++) {
-            for (int j = 0; j < s[i].length(); j++) {
-                //if (s[i].length() > teller) {
-                    nyString += s[i].charAt(j);
-                    if (i == s.length-1) {
-                        i = 0;
-                        j++;
-                    }
-                    break;
-                    //teller++;
-                //}
-            }
+            teller++;
         }
         return nyString;
-        //throw new UnsupportedOperationException();
+    }
+
+    public static int getLongestString(String... s) {
+        int maxLength = 0;
+        for (String st : s) {
+            if (st.length() > maxLength) {
+                maxLength = st.length();
+            }
+        }
+        return maxLength;
     }
 
     ///// Oppgave 8 //////////////////////////////////////
