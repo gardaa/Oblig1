@@ -1,29 +1,33 @@
+//Gard Åckerström Aasness - s339557
+
 package no.oslomet.cs.algdat.Oblig1;
 
 ////// Løsningsforslag Oblig 1 ////////////////////////
 
 import java.lang.UnsupportedOperationException;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class Oblig1 {
-    private Oblig1() {}
+    private Oblig1() {
+    }
 
     ///// Oppgave 1 //////////////////////////////////////
     /*
-    - Det blir flest ombyttinger når det høyeste tallet ligger på første plass i listen (indeks 0).
-    - Det blir færrest ombyttinger når listen allerede er sortert i stigende rekkefølge.
-    - En tilnærmet riktig formel vil være O(n), ettersom antall ombytter er tilnærmet lik antall tall i listen
+    - Det blir flest ombyttinger naar det hoeyeste tallet ligger på første plass i listen (indeks 0).
+    - Det blir faerrest ombyttinger naar listen allerede er sortert i stigende rekkefoelge.
+    - En tilnaermet riktig formel vil vaere O(n), ettersom antall ombytter er tilnaermet lik antall tall i listen
      */
     public static int maks(int[] a) {
         if (a.length == 0) {
             throw new NoSuchElementException("Listen er tom");
         }
         for (int i = 1; i < a.length; i++) {
-            if (a[i-1] > a[i]) {
-                bytt(a, i, i-1);
+            if (a[i - 1] > a[i]) {
+                bytt(a, i, i - 1);
             }
         }
-        return a[a.length-1];
+        return a[a.length - 1];
         //throw new UnsupportedOperationException();
     }
 
@@ -31,8 +35,8 @@ public class Oblig1 {
         int teller = 0;
 
         for (int i = 1; i < a.length; i++) {
-            if (a[i-1] > a[i]) {
-                bytt(a, i, i-1);
+            if (a[i - 1] > a[i]) {
+                bytt(a, i, i - 1);
                 teller++;
             }
         }
@@ -58,10 +62,9 @@ public class Oblig1 {
         int teller = 1;
 
         for (int i = 1; i < a.length; i++) {
-            if (a[i] > a[i-1]) {
+            if (a[i] > a[i - 1]) {
                 teller++;
-            }
-            else if (a[i] < a[i-1]) {
+            } else if (a[i] < a[i - 1]) {
                 throw new IllegalStateException("Listen er ikke sortert i stigende rekkefølge");
             }
         }
@@ -97,11 +100,59 @@ public class Oblig1 {
 
     ///// Oppgave 4 //////////////////////////////////////
     public static void delsortering(int[] a) {
+        /*
+        Bruke quicksort til å sortere. Først gjøre en sjekk med modulus som sjekker om tallet er et oddetall eller
+        partall(oddetall til venstre, partall til høyre). Deretter gjøre en sjekk som sjekker hvor den skal ligge
+        ettersom det skal være i stigende rekkefølge.
+         */
 
-        //throw new UnsupportedOperationException();
+        int venstre = 0;
+        int hoyre = a.length - 1;
+        if (kunPartall(a)) {
+            Arrays.sort(a);
+        }
+        if (kunOddetall(a)) {
+            Arrays.sort(a);
+        }
+        int antallOdde = 0;
+        while (venstre < hoyre) {
+            while (a[venstre] % 2 != 0 && venstre < hoyre) {
+                venstre++;
+                antallOdde++;
+            }
+            while (a[hoyre] % 2 == 0 && venstre < hoyre)
+                hoyre--;
+            if (venstre < hoyre) {
+                bytt(a, venstre, hoyre);
+            }
+        }
+        Arrays.sort(a, 0, antallOdde);
+        Arrays.sort(a, antallOdde, a.length);
     }
 
-    ///// Oppgave 5 //////////////////////////////////////
+    public static boolean kunPartall(int [] a) {
+        boolean kunPartall = true;
+        for (int j : a) {
+            if (j % 2 == 1) {
+                kunPartall = false;
+                break;
+            }
+        }
+        return kunPartall;
+    }
+
+    public static boolean kunOddetall(int [] a) {
+        boolean kunOddetall = true;
+        for (int j : a) {
+            if (j % 2 == 0) {
+                kunOddetall = false;
+                break;
+            }
+        }
+        return kunOddetall;
+    }
+
+///// Oppgave 5 //////////////////////////////////////
     public static void rotasjon(char[] a) {
         if (a.length > 3) {
             char tempBak = a[0];
